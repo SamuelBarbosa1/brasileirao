@@ -31,13 +31,10 @@ func main() {
 		{Nome: "Atlético-GO", Pontos: 18, Jogos: 25, Vitorias: 4, Empates: 6, Derrotas: 15},
 	}
 
-	// Ordena os times
 	times.OrdenarTimes(timesLista)
 
-	// Exibe a tabela no terminal
 	times.ExibirTabela(timesLista)
 
-	// Exporta para CSV
 	err := times.ExportarParaCSV(timesLista, "tabela_brasileirao.csv")
 	if err != nil {
 		fmt.Println("Erro ao exportar para CSV:", err)
@@ -45,12 +42,10 @@ func main() {
 		fmt.Println("Tabela exportada com sucesso para tabela_brasileirao.csv")
 	}
 
-	// Cria o handler para servir a tabela via HTTP
 	http.HandleFunc("/tabela", func(w http.ResponseWriter, r *http.Request) {
-		// Define o cabeçalho de codificação UTF-8
+
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-		// Constrói a tabela em uma string com CSS
 		var sb strings.Builder
 		sb.WriteString(`
 		<html>
@@ -112,13 +107,11 @@ func main() {
 		</body>
 		</html>`)
 
-		// Define o tipo de resposta como HTML
 		w.Header().Set("Content-Type", "text/html")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(sb.String()))
 	})
 
-	// Inicia o servidor HTTP na porta 8080
 	fmt.Println("Servidor rodando na porta 8080...")
 	http.ListenAndServe(":8080", nil)
 }

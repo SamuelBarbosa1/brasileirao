@@ -1,0 +1,3 @@
+[service]
+name = "brasileirao"
+start = "go run main.go"
